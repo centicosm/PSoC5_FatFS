@@ -33,7 +33,7 @@ void Display_Help(void) {
 
 // mount the card, must be used before any other operation
 void Mount_Disk(FatFS_t *fatFS) {
- 	FatFS_Result_t res = f_mount(fatFS, "", 1);
+    FatFS_Result_t res = f_mount(fatFS, "", 1);
     if (res != FR_OK) {
         Print_ToUSBUart("Error mounting sd card\n");   
     }
@@ -51,7 +51,7 @@ void Erase_File(const char *fileName) {
     Print_ToUSBUart(buf);
     
     FatFS_Result_t res = f_unlink(fileName);
-   	if (res == FR_OK) {
+    if (res == FR_OK) {
         Print_ToUSBUart("Done\n");   
     }
     else {
@@ -69,7 +69,7 @@ void Create_File(const char *fileName) {
     Print_ToUSBUart(buf);
     
     FatFS_Result_t res = f_open(&fileHandle, fileName, FA_CREATE_ALWAYS | FA_WRITE);
-   	if (res == FR_OK) {
+    if (res == FR_OK) {
         f_close(&fileHandle);
         Print_ToUSBUart("Done\n");   
     }
@@ -92,7 +92,7 @@ void Print_File(const char *fileName) {
         while (f_gets(buf, 128, &fileHandle)) {
             Print_ToUSBUart(buf);            
         }
-    	f_close(&fileHandle);					    
+        f_close(&fileHandle);					    
         Print_ToUSBUart("\n\nDone\n");   
     }
     else {
@@ -116,7 +116,7 @@ void Append_File(const char *fileName, const char *line) {
         FatFS_Result_t seekRes = f_lseek(&fileHandle, f_size(&fileHandle));
         if (seekRes == FR_OK) {
             f_puts(line, &fileHandle);
-    	    f_close(&fileHandle);
+            f_close(&fileHandle);
             Print_ToUSBUart("Done\n");
         }
         else {
